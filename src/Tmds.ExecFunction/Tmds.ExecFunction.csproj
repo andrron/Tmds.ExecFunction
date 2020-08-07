@@ -11,6 +11,8 @@
     <RepositoryUrl>https://github.com/tmds/Tmds.ExecFunction</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Tom Deseyn</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.4.0.1</Version>
   </PropertyGroup>
 
 </Project>

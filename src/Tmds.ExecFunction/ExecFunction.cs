@@ -249,6 +249,33 @@ namespace Tmds.Utils
 
                 HostArguments = PasteArguments.Paste(new string[] { "exec", "--runtimeconfig", runtimeConfigFile, "--depsfile", depsFile, execFunctionAssembly });
             }
+
+            // application is running at 'iisexpress'.
+            if (HostFilename.EndsWith("/iisexpress") || HostFilename.EndsWith("\\iisexpress.exe") || HostFilename.EndsWith("\\w3wp.exe"))
+            {
+                HostFilename = "dotnet";
+                
+                string execFunctionAssembly = typeof(ExecFunction).Assembly.Location;
+
+                string entryAssemblyWithoutExtension = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),
+                    Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location));
+                appArguments = appArguments ?? GetApplicationArguments();
+
+                string runtimeConfigFile = GetApplicationArgument(appArguments, "--runtimeconfig");
+                if (runtimeConfigFile == null)
+                {
+                    runtimeConfigFile = entryAssemblyWithoutExtension + ".runtimeconfig.json";
+                }
+
+                string depsFile = GetApplicationArgument(appArguments, "--depsfile");
+                if (depsFile == null)
+                {
+                    depsFile = entryAssemblyWithoutExtension + ".deps.json";
+                }
+
+                HostArguments = PasteArguments.Paste(new string[] { "exec", "--runtimeconfig", runtimeConfigFile, "--depsfile", depsFile, execFunctionAssembly });
+            }
+
             // application is an apphost. Main method must call 'RunFunction.Program.Main' for CommandName.
             else
             {
