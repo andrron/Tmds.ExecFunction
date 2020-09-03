@@ -227,7 +227,7 @@ namespace Tmds.Utils
             }
 
             // application is running as 'dotnet exec'.
-            if (HostFilename.EndsWith("/dotnet") || HostFilename.EndsWith("\\dotnet.exe"))
+            else if (HostFilename.EndsWith("/dotnet") || HostFilename.EndsWith("\\dotnet.exe"))
             {
                 string execFunctionAssembly = typeof(ExecFunction).Assembly.Location;
 
@@ -251,10 +251,10 @@ namespace Tmds.Utils
             }
 
             // application is running at 'iisexpress'.
-            if (HostFilename.EndsWith("/iisexpress") || HostFilename.EndsWith("\\iisexpress.exe") || HostFilename.EndsWith("\\w3wp.exe"))
+            else if (HostFilename.EndsWith("/iisexpress") || HostFilename.EndsWith("\\iisexpress.exe") || HostFilename.EndsWith("\\w3wp.exe"))
             {
                 HostFilename = "dotnet";
-                
+
                 string execFunctionAssembly = typeof(ExecFunction).Assembly.Location;
 
                 string entryAssemblyWithoutExtension = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),
